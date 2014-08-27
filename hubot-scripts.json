@@ -1,1 +1,16 @@
-["redis-brain.coffee", "shipit.coffee"]
+[
+	"adult.coffee",
+	"alot.coffee",
+	"applause.coffee",
+	"ascii.coffee",
+	"beerme.coffee",
+	"flip.coffee",
+	"cowsay.coffee",
+	"invalid.coffee",
+	"jenkins.coffee",
+	"jira-issues.coffee",
+	"kittens.coffee",
+
+	"redis-brain.coffee",
+	"shipit.coffee"
+]
