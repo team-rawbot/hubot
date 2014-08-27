@@ -1,3 +1,4 @@
 node_modules
 ENV_VAR
+log
 .DS_Store*
