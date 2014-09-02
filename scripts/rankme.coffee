@@ -2,7 +2,7 @@
 #   Rank-me related commands
 #
 # Commands:
-#   hubot rankme deploy <tag> - Make sure hubot still knows the rules.
+#   hubot rankme deploy <tag> - Deploy rank-me given tag
 
 {spawn, exec}  = require 'child_process'
 
@@ -20,6 +20,6 @@ module.exports = (robot) ->
      exec command, (err, stdout, stderr) ->
        if err
          msg.reply "Error deploying " + tag
-         robot.logger.error err, stdout, stderr
+         robot.logger.error err + "\n----\n" + stdout + "\n----\n" + stderr
        else
          msg.reply "Successfully deployed rank-me version " + tag
