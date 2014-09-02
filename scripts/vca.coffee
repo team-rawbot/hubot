@@ -13,12 +13,10 @@ module.exports = (robot) ->
 
      command="cd /home/hubot/Repositories/vca && app/console deploy --tag " + tag + " " + server
 
-     command="cd /home/krtek/Repositories/liip/vca && app/console deploy plop plop--tag " + tag + " " + server
-
      msg.send "Deploying version " + tag + " on http://" + server + ".vancleefarpels.com"
      exec command, (err, stdout, stderr) ->
        if err
          msg.reply "Error deploying " + tag
-         robot.logger.error stdout
+         robot.logger.error stdout + "\n" + stderr
        else
          msg.reply "Successfully deployed rank-me version " + tag
