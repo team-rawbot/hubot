@@ -11,7 +11,7 @@ module.exports = (robot) ->
      server = msg.match[1]
      tag = msg.match[2].trim()
 
-     command="cd /home/hubot/Repositories/vca && app/console deploy --tag " + tag + " " + server
+     command="cd /home/hubot/Repositories/vca && app/console deploy --no-confirmation --tag " + tag + " " + server
 
      msg.send "Deploying version " + tag + " on http://" + server + ".vancleefarpels.com"
      exec command, (err, stdout, stderr) ->
