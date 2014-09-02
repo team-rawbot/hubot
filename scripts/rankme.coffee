@@ -19,7 +19,7 @@ module.exports = (robot) ->
      msg.send "Deploying " + tag
      exec c, (err, stdout, stderr) ->
        if err
-         msg.send "Error deploying rank-me : "
-         msg.send err
+         msg.reply "Error deploying rank-me : "
+         msg.send(line) for line in err.toString().split("\n")
        else
-         msg.send "Successfully deployed rank-me"
+         msg.reply "Successfully deployed rank-me version " + tag
