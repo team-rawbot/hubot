@@ -14,12 +14,12 @@ module.exports = (robot) ->
         msg.send "For now you have to provide a tag"
         return
 
-     c="cd /home/hubot/Repositories/rank-me && fab deploy:" + tag
+     command="cd /home/hubot/Repositories/rank-me && fab deploy:" + tag
 
-     msg.send "Deploying " + tag
-     exec c, (err, stdout, stderr) ->
+     msg.send "Deploying version " + tag + " on http://www.rank-me.io"
+     exec command, (err, stdout, stderr) ->
        if err
-         msg.reply "Error deploying rank-me : "
-         msg.send(line) for line in err.toString().split("\n")
+         msg.reply "Error deploying " + tag
+         robot.logger.error err, stdout, stderr
        else
          msg.reply "Successfully deployed rank-me version " + tag
