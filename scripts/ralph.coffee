@@ -1,18 +1,12 @@
 # Description:
 #   None
 #
-# Dependencies:
-#   None
-#
-# Configuration:
-#   None
-#
 # Commands:
 #   ralph - Shows a picture of Alf
 #   robin - Shows something
 #
 # Author:
-#   tbwIII
+#   Gilles Crettenand
 
 ralphs = [
 	"http://media.giphy.com/media/aRspiC2CRok1y/giphy.gif",
