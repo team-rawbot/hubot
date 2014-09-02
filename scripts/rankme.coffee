@@ -1,9 +1,13 @@
-# deploy <branch> to stage - deploy the branch to stage
+# Description:
+#   Rank-me related commands
+#
+# Commands:
+#   hubot rankme deploy <tag> - Make sure hubot still knows the rules.
 
 {spawn, exec}  = require 'child_process'
 
 module.exports = (robot) ->
-  robot.respond /deploy rank-me(.*)?/i, (msg) ->
+  robot.respond /rankme deploy(.*)?/i, (msg) ->
      if msg.match[1] != undefined
         tag = msg.match[1].trim()
      else
