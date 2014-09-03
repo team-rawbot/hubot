@@ -3,6 +3,8 @@
 #
 # Commands:
 #   hubot rankme deploy <tag> - Deploy rank-me given tag
+#   hubot rankme competitions - List all competitions
+#   hubot rankme teams - List all teams
 
 {spawn, exec}  = require 'child_process'
 
