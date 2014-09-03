@@ -36,6 +36,9 @@ module.exports = (robot) ->
        else
          msg.send "Successfully updated hubot"
          msg.send "Restarting ..."
-         process.exit 0
+         # wait some time, then restart
+         setTimeout() ->
+           process.exit 0
+         , 1000
 
 
