@@ -10,7 +10,7 @@
 
 {spawn, exec}  = require 'child_process'
 
-server = 'http://www.rank-me.io'
+server = 'http://local.rankme'
 api = server + '/api/'
 
 module.exports = (robot) ->
@@ -38,11 +38,13 @@ module.exports = (robot) ->
          .header('Authorization', 'Token ' + process.env.RANKME_TOKEN)
          .get() (err, res, body) ->
            json = JSON.parse(body)
+           message = []
            if json.results
-             msg.send "#{c.name}" for c in json.results
-             msg.send "------"
+             message.push "#{c.name} [#{c.slug}]" for c in json.results
+             message.push "------"
            else
-             msg.send "Error : " + body
+             message.push "Error : " + body
+           msg.send message.join "\n"
 
   robot.respond /rankme teams/i, (msg) ->
      msg.send "Getting team list ..."
@@ -51,11 +53,13 @@ module.exports = (robot) ->
          .header('Authorization', 'Token  ' + process.env.RANKME_TOKEN)
          .get() (err, res, body) ->
            json = JSON.parse(body)
+           message = []
            if json.results
-             msg.send "#{t.name} - #{t.competitions}" for t in json.results
-             msg.send "------"
+             message.push "#{t.name} - #{t.competitions}" for t in json.results
+             message.push "------"
            else
-             msg.send "Error : " + body
+             message.push "Error : " + body
+           msg.send message.join "\n"
 
   robot.respond /rankme result ([^ ]*) ([^ ]*)( into ([^ ]*))?/i, (msg) ->
      if msg.match[4]?
