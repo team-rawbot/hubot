@@ -10,7 +10,7 @@
 
 {spawn, exec}  = require 'child_process'
 
-server = 'http://local.rankme'
+server = 'http://www.rank-me.io'
 api = server + '/api/'
 
 module.exports = (robot) ->
