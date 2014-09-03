@@ -5,6 +5,8 @@
 #   hubot rankme deploy <tag> - Deploy rank-me given tag
 #   hubot rankme competitions - List all competitions
 #   hubot rankme teams - List all teams
+#   hubot rankme result <winner> <looser> - Enter a result into the default competition
+#   hubot rankme result <winner> <looser> into <competition> - Enter a result into the given competition
 
 {spawn, exec}  = require 'child_process'
 
@@ -55,14 +57,25 @@ module.exports = (robot) ->
            else
              msg.send "Error : " + body
 
-###
-  robot.respond /rankme enter ([^ ]*) ([^ ]*)( into ([^ ]*))?/i, (msg) ->
-     winner = msg.match[1]
-     looser = msg.match[2]
-     if msg.match[4] != undefined
-       competition = msg.match[4]
+  robot.respond /rankme result ([^ ]*) ([^ ]*)( into ([^ ]*))?/i, (msg) ->
+     if msg.match[4]?
+       competition =  msg.match[4]
      else
        competition = 'default-competition'
 
-     console.log(winner, looser, competition)
-###
+     payload = {
+        'competition': competition,
+        'winner': msg.match[1],
+        'looser': msg.match[2]
+     }
+
+     msg.send "Sending results ..."
+     robot.http(api + 'results/add/')
+         .header('accept', 'application/json')
+         .header('Content-Type', 'application/json')
+         .header('Authorization', 'Token  ' + process.env.RANKME_TOKEN)
+         .post(JSON.stringify(payload)) (err, res, body) ->
+           json = JSON.parse(body)
+
+           if json.status != 'success'
+             msg.send "Error : " + body
