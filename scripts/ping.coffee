@@ -6,6 +6,8 @@
 #   hubot echo <text> - Reply back with <text>
 #   hubot time - Reply with current time
 
+{spawn, exec}  = require 'child_process'
+
 module.exports = (robot) ->
   robot.respond /PING$/i, (msg) ->
     msg.send "PONG"
@@ -22,4 +24,18 @@ module.exports = (robot) ->
   robot.respond /ADMIN DIE$/i, (msg) ->
     msg.send "Goodbye, cruel world."
     process.exit 0
+
+  robot.respond /ADMIN UPDATE/i, (msg) ->
+     command="git fetch && git merge origin/master"
+
+     msg.send "Updating hubot from https://github.com/team-rawbot/hubot"
+     exec command, (err, stdout, stderr) ->
+       if err
+         msg.send "There was an error, see log"
+         robot.logger.error err + "\n----\n" + stdout + "\n----\n" + stderr
+       else
+         msg.send "Successfully updated hubot"
+         msg.send "Restarting ..."
+         process.exit 0
+
 
