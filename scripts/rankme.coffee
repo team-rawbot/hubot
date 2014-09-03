@@ -30,6 +30,7 @@ module.exports = (robot) ->
          msg.reply "Successfully deployed rank-me version " + tag
 
   robot.respond /rankme competitions/i, (msg) ->
+     msg.send "Getting competition list ..."
      robot.http(api + 'competitions/?page_size=100')
          .header('accept', 'application/json')
          .header('Authorization', 'Token ' + process.env.RANKME_TOKEN)
@@ -37,10 +38,12 @@ module.exports = (robot) ->
            json = JSON.parse(body)
            if json.results
              msg.send "#{c.name}" for c in json.results
+             msg.send "------"
            else
-             msg.send "error"
+             msg.send "Error : " + body
 
   robot.respond /rankme teams/i, (msg) ->
+     msg.send "Getting team list ..."
      robot.http(api + 'teams/?page_size=100')
          .header('accept', 'application/json')
          .header('Authorization', 'Token  ' + process.env.RANKME_TOKEN)
@@ -48,8 +51,9 @@ module.exports = (robot) ->
            json = JSON.parse(body)
            if json.results
              msg.send "#{t.name} - #{t.competitions}" for t in json.results
+             msg.send "------"
            else
-             msg.send "error"
+             msg.send "Error : " + body
 
 ###
   robot.respond /rankme enter ([^ ]*) ([^ ]*)( into ([^ ]*))?/i, (msg) ->
